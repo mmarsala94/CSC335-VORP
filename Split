@@ -1,0 +1,16 @@
+var orig = 'Clayton Kershaw	Dodgers	Starting pitcher	$32,571,429	27	NL West 	National League 	California';
+//console.log(orig);
+//console.log(orig.split()); //
+
+function splitString(stringToSplit, separator) {
+  var arrayOfStrings = stringToSplit.split(separator);
+
+  console.log('The original string is: "' + stringToSplit + '"');
+  console.log('The separator is: "' + separator + '"');
+  console.log('The array has ' + arrayOfStrings.length + ' elements: ' + arrayOfStrings.join(' / '));
+
+    
+}
+
+var space = ' ';
+var tab = '\t';
