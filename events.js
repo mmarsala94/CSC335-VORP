@@ -1,4 +1,5 @@
 var computeButton = document.getElementById("computeButton");
+var data; 
 computeButton.addEventListener("click", function() {
-	          alert(document.getElementById("player-data").value);
+	          data = document.getElementById("player-data").value;
 	      });
