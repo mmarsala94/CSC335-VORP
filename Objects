@@ -1,0 +1,35 @@
+var data = "Clayton Kershaw	Dodgers	Starting pitcher	$32,571,429	27	NL West 	National League 	California\n\
+Justin Verlander	Tigers	Starting pitcher	$28,000,000	32	AL Central 	American League 	Michigan\n\
+Josh Hamilton	Angels	Left field	$25,400,000	32	AL West 	American League 	California\n\
+Ryan Howard	Phillies	First base	$25,000,000	35	NL East 	National League 	Pennsylvania\n\
+Zack Greinke	Dodgers	Starting pitcher	$25,000,000	31	NL West 	National League 	California";
+
+//var data2 = 
+
+var arr = data.split("\n");
+var arr2 = [];
+for(var i = 0; i < arr.length; i++)
+{
+    arr2[i] = arr[i].split("\t");
+}
+//console.log(arr);
+//console.log(arr2);
+
+var players = [];
+
+function addPlayer(name, position, salary, vorp)
+{
+    players.push({
+        Name: name,
+        Position: position,
+        Salary: salary,
+        VORP : vorp
+    });
+}
+
+for(var i = 0; i < arr2.length; i++)
+{
+    addPlayer(arr2[i][0],arr2[i][2],arr2[i][3]);
+}
+
+console.log(players['Josh Hamilton'].Position);
