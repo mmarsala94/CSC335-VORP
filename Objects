@@ -15,16 +15,15 @@ for(var i = 0; i < arr.length; i++)
 //console.log(arr);
 //console.log(arr2);
 
-var players = [];
+var players = {};
 
-function addPlayer(name, position, salary, vorp)
+function addPlayer(name,position,salary,vorp)
 {
-    players.push({
-        Name: name,
+    players[name]= {
         Position: position,
         Salary: salary,
         VORP : vorp
-    });
+    };
 }
 
 for(var i = 0; i < arr2.length; i++)
