@@ -23,7 +23,7 @@ Ryan Howard	Phillies	First base	$25,000,000	35	NL East 	National League 	Pennsyl
 Zack Greinke	Dodgers	Starting pitcher	$25,000,000	31	NL West 	National League 	California";
 
 var arr = data.split("\n");
-var arr2;
+var arr2 = [];
 for(var i = 0; i < arr.length; i++)
 {
     arr2[i] = arr[i].split("\t");
