@@ -14,3 +14,19 @@ function splitString(stringToSplit, separator) {
 
 var space = ' ';
 var tab = '\t';
+
+
+var data = "Clayton Kershaw	Dodgers	Starting pitcher	$32,571,429	27	NL West 	National League 	California
+Justin Verlander	Tigers	Starting pitcher	$28,000,000	32	AL Central 	American League 	Michigan
+Josh Hamilton	Angels	Left field	$25,400,000	32	AL West 	American League 	California
+Ryan Howard	Phillies	First base	$25,000,000	35	NL East 	National League 	Pennsylvania
+Zack Greinke	Dodgers	Starting pitcher	$25,000,000	31	NL West 	National League 	California";
+
+var arr = data.split("\n");
+var arr2;
+for(var i = 0; i < arr.length; i++)
+{
+    arr2 = arr[i].split("\t");
+}
+
+console.log(arr2);
