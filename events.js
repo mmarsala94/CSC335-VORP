@@ -2,7 +2,7 @@ var computeButton = document.getElementById("computeButton");
 var data; 
 computeButton.addEventListener("click", function() {
 	          data = document.getElementById("player-data");
-	      });
+	      
 
 var splitData = data.split("***");
 
@@ -47,3 +47,6 @@ for(var i = 0; i < arr4.length; i++)
         }
     }
 }
+alert(players['Josh Hamilton']);
+alert(players['Matt Duffy']);
+});
