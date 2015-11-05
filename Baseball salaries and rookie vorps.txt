@@ -865,7 +865,7 @@ Juan Jaime	Braves	Relief pitcher	$507,500	27	NL East 	National League 	Georgia
 Liam Hendriks	Blue Jays	Relief pitcher	$507,500	26	AL East 	American League 	Toronto
 Drew Hutchison	Blue Jays	Relief pitcher	$507,500	24	AL East 	American League 	Toronto
 Darin Ruf	Phillies	Right field	$507,500	28	NL East 	National League 	Pennsylvania
-#	NAME	TEAM	POS	LG	YEAR	AGE	PA	PA%	AVG	OBP	SLG	SB	CS	VORPr	BVORP	VORP	TAv	WARP
+***
 1.	Kris Bryant	CHN	3B	NL	2015	23	650	10.48%	.275	.369	.488	13	4	0.089	58.1	58.1	.317	5.96
 2.	Matt Duffy	SFN	3B	NL	2015	24	612	9.95%	.295	.334	.428	12	0	0.055	33.6	33.6	.283	3.79
 3.	Joc Pederson	LAN	CF	NL	2015	23	585	9.61%	.210	.346	.417	4	7	0.056	32.5	32.5	.287	1.44
