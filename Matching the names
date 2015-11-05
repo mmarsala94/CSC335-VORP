@@ -1,0 +1,65 @@
+var data = "Clayton Kershaw	Dodgers	Starting pitcher	$32,571,429	27	NL West 	National League 	California\n\
+Justin Verlander	Tigers	Starting pitcher	$28,000,000	32	AL Central 	American League 	Michigan\n\
+Josh Hamilton	Angels	Left field	$25,400,000	32	AL West 	American League 	California\n\
+Ryan Howard	Phillies	First base	$25,000,000	35	NL East 	National League 	Pennsylvania\n\
+Zack Greinke	Dodgers	Starting pitcher	$25,000,000	31	NL West 	National League 	California\n\
+Matt Duffy	Giants	First base	$509,000	24	NL West 	National League 	California";
+
+var data2 = '1.	Kris Bryant	CHN	3B	NL	2015	23	650	10.48%	.275	.369	.488	13	4	0.089	58.1	58.1	.317	5.96\n\
+2.	Matt Duffy	SFN	3B	NL	2015	24	612	9.95%	.295	.334	.428	12	0	0.055	33.6	33.6	.283	3.79\n\
+3.	Joc Pederson	LAN	CF	NL	2015	23	585	9.61%	.210	.346	.417	4	7	0.056	32.5	32.5	.287	1.44';
+
+var arr = data.split("\n");
+var arr2 = [];
+for(var i = 0; i < arr.length; i++)
+{
+    arr2[i] = arr[i].split("\t");
+}
+//console.log(arr);
+//console.log(arr2);
+
+
+//This rookie data is split identically as the salary one was
+//We should turn this into a function eventually as it is repeated data.
+var arr3 = data2.split("\n");
+var arr4 = [];
+for(var i = 0; i < arr3.length; i++)
+{
+    arr4[i] = arr3[i].split("\t");
+}
+//console.log(arr3);//Test to make sure the data is initially split by newline
+//console.log(arr4);//Test to make sure the data is split by tab into the appropriate arrays
+//console.log(arr4[0][1]);
+console.log(arr4[1][1]);//Test to see if the name is printed out
+console.log(arr2[5][0]);//Test to see if the same name is printed out
+var players = {};
+
+//This runs through the rookie array, and the salary array
+//If the player is in both, it says so.
+//If he is not in both, it says so.
+for(var i = 0; i < arr4.length; i++)
+{
+    for(var j = 0; j < arr2.length; j++)
+    {
+        if(arr4[i][1] === arr2[j][0])
+        {console.log("He's in both")}
+        else
+        {console.log("He's not in both")}
+    }
+}
+
+function addPlayer(name,position,salary,vorp)
+{
+    players[name]= {
+        Position: position,
+        Salary: salary,
+        VORP : vorp
+    };
+}
+
+for(var i = 0; i < arr2.length; i++)
+{
+    addPlayer(arr2[i][0],arr2[i][2],arr2[i][3]);
+}
+
+//console.log(players['Josh Hamilton'].Position);
