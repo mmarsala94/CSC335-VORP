@@ -47,6 +47,7 @@ for(var i = 0; i < arr4.length; i++)
         }
     }
 }
-alert(players['Josh Hamilton']);
-alert(players['Matt Duffy']);
+
+document.results.value = splitData;
+
 });
