@@ -48,6 +48,5 @@ for(var i = 0; i < arr4.length; i++)
     }
 }
 
-document.getElementById("results").value = splitData;
-//document.getElementById("results").value + //(some value)  //use this to log to the results text area 
+document.getElementById("results").value = splitData; //logs data to the textarea
 });
