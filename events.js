@@ -27,7 +27,7 @@ function addPlayer(name,position,salary,vorp)
     players[name]= {
         Position: position,
         Salary: salary,
-        VORP : vorp
+        Vorp : vorp
     };
 }
 
