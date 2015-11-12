@@ -35,7 +35,10 @@ for(var i = 0; i < arr2.length; i++)
 {
     addPlayer(arr2[i][0],arr2[i][2],arr2[i][3], "No Vorp");
 }
-
+for(var i = 0; i < arr4.length; i++)
+{
+	addPlayer(arr4[i][1], arr4[i][3], "No Salary", arr4[i][16]);
+}
 for(var i = 0; i < arr4.length; i++)
 {
     for(var j = 0; j < arr2.length; j++)
