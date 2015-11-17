@@ -12,7 +12,16 @@ for(var i = 0; i < arr.length; i++)
 {
     arr2[i] = arr[i].split("\t");
 }
-
+function splitData (dataArr) // will want to insert splitData[0] || splitData[1]
+{
+	var arr = dataArr.split("\n");
+	var resultArr=[];
+	for (var i =0; i<arr.length; i++)
+	{
+	resultArr[i]  = arr[i].split("\t");
+	}
+	return resultArr;
+}//function to split data
 var arr3 = splitData[1].split("\n");
 var arr4 = [];
 for(var i = 0; i < arr3.length; i++)
