@@ -25,6 +25,7 @@ var players = {};
 function addPlayer(name,position,salary,vorp)
 {
     players[name]= {
+        Name: name,
         Position: position,
         Salary: salary,
         Vorp : vorp
