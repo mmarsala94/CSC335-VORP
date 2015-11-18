@@ -21,8 +21,9 @@ for(var i = 0; i < arr3.length; i++)
 }
 
 var players = {};
+var teamList = {};
 
-function splitData (dataArr) // will want to insert splitData[0] || splitData[1]
+/*function split_Data (dataArr) // will want to insert splitData[0] || splitData[1]
 {
 	var arr = dataArr.split("\n");
 	var resultArr=[];
@@ -39,9 +40,8 @@ for(var i = 0; i < arr3.length; i++)
     arr4[i] = arr3[i].split("\t");
 }
 
-var newData = [];
-newData = splitData(splitData);
-
+var newData = split_Data(splitData);
+*/
 
 function addPlayer(name,position,salary,vorp)
 {
@@ -80,11 +80,11 @@ for(var i = 0; i < arr4.length; i++)
 //playerList.push(players["Josh Hamilton"]);
 
 
-document.getElementById("results").value = newData; 
+//document.getElementById("results").value = newData; 
 
-/*for(i=0 ; i< playerList.length; i++){
-document.getElementById("results").value += playerList[i].Vorp + ' ' + playerList[i].Salary +'\n';
-}*/
+for(i=0 ; i< playerList.length; i++){
+document.getElementById("results").value += Number(playerList[i].Vorp) + ' ' + Number((playerList[i].Salary).slice(1).replace(/,/g,'')) + '\n' ;
+}
 
 
 //document.getElementById("results").value = splitData; //logs //data to the textarea
