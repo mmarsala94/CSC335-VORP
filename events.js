@@ -12,6 +12,16 @@ for(var i = 0; i < arr.length; i++)
 {
     arr2[i] = arr[i].split("\t");
 }
+
+var arr3 = splitData[1].split("\n");
+var arr4 = [];
+for(var i = 0; i < arr3.length; i++)
+{
+    arr4[i] = arr3[i].split("\t");
+}
+
+var players = {};
+
 function splitData (dataArr) // will want to insert splitData[0] || splitData[1]
 {
 	var arr = dataArr.split("\n");
@@ -29,16 +39,22 @@ for(var i = 0; i < arr3.length; i++)
     arr4[i] = arr3[i].split("\t");
 }
 
-var players = {};
+var newData = [];
+newData = splitData(splitData);
+
 
 function addPlayer(name,position,salary,vorp)
 {
     players[name]= {
-        Position: position,
+        Name: name,
+	   Position: position,
         Salary: salary,
         Vorp : vorp
     };
+	return players[name];
 }
+
+var playerList = [];
 
 for(var i = 0; i < arr2.length; i++)
 {
@@ -54,11 +70,22 @@ for(var i = 0; i < arr4.length; i++)
     {
         if(arr4[i][1] === arr2[j][0])
         {
-            addPlayer(arr4[i][1], arr2[j][2], arr2[j][3], arr4[i][15]);
+            playerList.push(addPlayer(arr4[i][1], arr2[j][2], arr2[j][3], arr4[i][15]));
             
         }
     }
 }
 
-document.getElementById("results").value = splitData; //logs data to the textarea
+//playerList.push(players["Matt Duffy"]);
+//playerList.push(players["Josh Hamilton"]);
+
+
+document.getElementById("results").value = newData; 
+
+/*for(i=0 ; i< playerList.length; i++){
+document.getElementById("results").value += playerList[i].Vorp + ' ' + playerList[i].Salary +'\n';
+}*/
+
+
+//document.getElementById("results").value = splitData; //logs //data to the textarea
 });
