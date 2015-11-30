@@ -1,8 +1,8 @@
 var computeButton = document.getElementById("computeButton");
 var data; 
 computeButton.addEventListener("click", function() {
-	          data = document.getElementById("player-data").value;
-	      
+              data = document.getElementById("player-data").value;
+          
 
 var splitData = data.split("***");
 //splitData = splitData.toLowerCase();
@@ -34,16 +34,22 @@ for(var i = 0; i < arr3.length; i++)
 //document.getElementById("results").value += arr4[86][1] === arr2[742][0];
 var players = {};
 var teamList = {};
-
+/*var teamBudget = 0;
+    teamBudget = prompt("Enter a team budget");
+    if((teamBudget < 0 || teamBudget > Number.MAX_SAFE_INTEGER) || typeof teamBudget !== "number")
+    {
+        teamBudget = prompt("not a number. Enter a valid budget number")    
+    }
+*/
 /*function split_Data (dataArr) // will want to insert splitData[0] || splitData[1]
 {
-	var arr = dataArr.split("\n");
-	var resultArr=[];
-	for (var i =0; i<arr.length; i++)
-	{
-	resultArr[i]  = arr[i].split("\t");
-	}
-	return resultArr;
+    var arr = dataArr.split("\n");
+    var resultArr=[];
+    for (var i =0; i<arr.length; i++)
+    {
+    resultArr[i]  = arr[i].split("\t");
+    }
+    return resultArr;
 }//function to split data
 var arr3 = splitData[1].split("\n");
 var arr4 = [];
@@ -51,7 +57,6 @@ for(var i = 0; i < arr3.length; i++)
 {
     arr4[i] = arr3[i].split("\t");
 }
-
 var newData = split_Data(splitData);
 */
 
@@ -95,7 +100,7 @@ teamList[name] = {
     RightField: null,
     RightFieldSalary: 0,
     RightFieldVorp: 0,
-    SalaryTotal: 0,
+    SalaryTotal: teamList.SalaryTotal = teamList.LeftFieldSalary + teamList.CenterFieldSalary + teamList.RightFieldSalary + teamList.ShortStopSalary+ teamList.ThirdBaseSalary + teamList.SecondBaseSalary + teamList.FirstBaseSalary + teamList.PitcherSalary + teamList.CatcherSalary,
     VorpTotal: 0
 };
 
@@ -107,22 +112,43 @@ teamList[name] = {
 //In each case, the first player for each position is added intially.
 //From then on, when each case is entered, it checks whether the player has a higher vorp
 //If he does, he replaces the player that was there.
+//teamList.SalaryTotal = 0;
+//document.getElementById("results").value += teamList.SalaryTotal;
+var teamBudget = 8000000;
+var test = 0;
 function addPlayerToTeam(playerList, i)//Realistically, you pass a letter then use that as the player object(name, position, salary, vorp)
 {
-    
+    teamList.SalaryTotal = teamList.LeftFieldSalary + teamList.CenterFieldSalary + teamList.RightFieldSalary + teamList.ShortStopSalary+ teamList.ThirdBaseSalary + teamList.SecondBaseSalary + teamList.FirstBaseSalary + teamList.PitcherSalary + teamList.CatcherSalary;
+        document.getElementById("results").value += teamList.SalaryTotal + ' ';
         switch (playerList[i].Position) {
   case "p":
   //document.getElementById("results").value += 'yo';
   if(teamList.Pitcher === undefined)
-    {teamList.Pitcher = playerList[i].Name;
-    teamList.PitcherSalary = playerList[i].Salary;
-    teamList.PitcherVorp = playerList[i].Vorp;
+    {
+        
+        if(playerList[i].Salary  < teamBudget)
+        {
+            //teamList.SalaryTotal = 0;
+           //test = teamList.SalaryTotal + playerList[i].Salary;
+           //teamList.SalaryTotal += playerList[i].Salary;
+           //document.getElementById("results").value += teamList.SalaryTotal;
+            teamList.Pitcher = playerList[i].Name;
+            teamList.PitcherSalary = playerList[i].Salary;
+            teamList.PitcherVorp = playerList[i].Vorp;
+        }
     }
     else if(teamList.PitcherVorp < playerList[i].Vorp)
     {
-        teamList.Pitcher = playerList[i].Name;
-    teamList.PitcherSalary = playerList[i].Salary;
-    teamList.PitcherVorp = playerList[i].Vorp;
+        //document.getElementById("results").value += teamList.SalaryTotal;
+       if(teamList.SalaryTotal + playerList[i].Salary < teamBudget)
+        {
+                      //teamList.SalaryTotal += playerList[i].Salary;
+           //document.getElementById("results").value += teamList.SalaryTotal;
+            teamList.Pitcher = playerList[i].Name;
+            teamList.PitcherSalary = playerList[i].Salary;
+            teamList.PitcherVorp = playerList[i].Vorp;
+            //teamList.SalaryTotal += playerList[i].Salary;
+        }
     }
     //teamList.Pitcher = playerList[i].Name;
     //teamList.PitcherSalary = playerList[i].Salary;
@@ -141,6 +167,7 @@ function addPlayerToTeam(playerList, i)//Realistically, you pass a letter then u
         teamList.Catcher = playerList[i].Name;
     teamList.CatcherSalary = playerList[i].Salary;
     teamList.CatcherVorp = playerList[i].Vorp;
+    //teamList.SalaryTotal += playerList[i].Salary;
     }
     //teamList.Catcher = playerList[i].Name;
     //teamList.CatcherSalary = playerList[i].Salary;
@@ -159,6 +186,7 @@ function addPlayerToTeam(playerList, i)//Realistically, you pass a letter then u
         teamList.FirstBase = playerList[i].Name;
     teamList.FirstBaseSalary = playerList[i].Salary;
     teamList.FirstBaseVorp = playerList[i].Vorp;
+    //teamList.SalaryTotal += playerList[i].Salary;
     }
     //teamList.FirstBase = playerList[i].Name;
     //teamList.FirstBaseSalary = playerList[i].Salary;
@@ -177,6 +205,7 @@ function addPlayerToTeam(playerList, i)//Realistically, you pass a letter then u
         teamList.SecondBase = playerList[i].Name;
     teamList.SecondBaseSalary = playerList[i].Salary;
     teamList.SecondBaseVorp = playerList[i].Vorp;
+    //teamList.SalaryTotal += playerList[i].Salary;
     }
     //teamList.SecondBase = playerList[i].Name;
     //teamList.SecondBaseSalary = playerList[i].Salary;
@@ -195,6 +224,7 @@ function addPlayerToTeam(playerList, i)//Realistically, you pass a letter then u
         teamList.ThirdBase = playerList[i].Name;
     teamList.ThirdBaseSalary = playerList[i].Salary;
     teamList.ThirdBaseVorp = playerList[i].Vorp;
+   // teamList.SalaryTotal += playerList[i].Salary;
     }
     //teamList.ThirdBase = playerList[i].Name;
     //teamList.ThirdBaseSalary = playerList[i].Salary;
@@ -213,6 +243,7 @@ function addPlayerToTeam(playerList, i)//Realistically, you pass a letter then u
         teamList.ShortStop = playerList[i].Name;
     teamList.ShortStopSalary = playerList[i].Salary;
     teamList.ShortStopVorp = playerList[i].Vorp;
+    //teamList.SalaryTotal += playerList[i].Salary;
     }
     //teamList.ShortStop = playerList[i].Name;
     //teamList.ShortStopSalary = playerList[i].Salary;
@@ -231,6 +262,7 @@ function addPlayerToTeam(playerList, i)//Realistically, you pass a letter then u
         teamList.LeftField = playerList[i].Name;
     teamList.LeftFieldSalary = playerList[i].Salary;
     teamList.LeftFieldVorp = playerList[i].Vorp;
+    //teamList.SalaryTotal += playerList[i].Salary;
     }
     //teamList.LeftField = playerList[i].Name;
     //teamList.LeftFieldSalary = playerList[i].Salary;
@@ -249,6 +281,7 @@ function addPlayerToTeam(playerList, i)//Realistically, you pass a letter then u
         teamList.CenterField = playerList[i].Name;
     teamList.CenterFieldSalary = playerList[i].Salary;
     teamList.CenterFieldVorp = playerList[i].Vorp;
+    //teamList.SalaryTotal += playerList[i].Salary;
     }
     //teamList.CenterField = playerList[i].Name;
     //teamList.CenterFieldSalary = playerList[i].Salary;
@@ -267,6 +300,7 @@ function addPlayerToTeam(playerList, i)//Realistically, you pass a letter then u
         teamList.RightField = playerList[i].Name;
     teamList.RightFieldSalary = playerList[i].Salary;
     teamList.RightFieldVorp = playerList[i].Vorp;
+    //teamList.SalaryTotal += playerList[i].Salary;
     }
     //teamList.RightField = playerList[i].Name;
     //teamList.RightFieldSalary = playerList[i].Salary;
@@ -278,8 +312,9 @@ function addPlayerToTeam(playerList, i)//Realistically, you pass a letter then u
     console.log("There's no way you can get here. Every player has a position.");
 }
 
-    teamList.SalaryTotal = teamList.LeftFieldSalary + teamList.CenterFieldSalary + teamList.RightFieldSalary + teamList.ShortStopSalary+ teamList.ThirdBaseSalary + teamList.SecondBaseSalary + teamList.FirstBaseSalary + teamList.PitcherSalary + teamList.CatcherSalary;
-    teamList.VorpTotal = teamList.LeftFieldVorp + teamList.CenterFieldVorp + teamList.RightFieldVorp + teamList.ShortStopVorp + teamList.ThirdBaseVorp + teamList.SecondBaseVorp + teamList. FirstBaseVorp + teamList.CatcherVorp + teamList.PitcherVorp;         
+    //teamList.SalaryTotal = teamList.LeftFieldSalary + teamList.CenterFieldSalary + teamList.RightFieldSalary + teamList.ShortStopSalary+ teamList.ThirdBaseSalary + teamList.SecondBaseSalary + teamList.FirstBaseSalary + teamList.PitcherSalary + teamList.CatcherSalary;
+    //document.getElementById("results").value += teamList.SalaryTotal + ' ';
+    teamList.VorpTotal = teamList.LeftFieldVorp + teamList.CenterFieldVorp + teamList.RightFieldVorp + teamList.ShortStopVorp + teamList.ThirdBaseVorp + teamList.SecondBaseVorp + teamList. FirstBaseVorp + teamList.CatcherVorp + teamList.PitcherVorp;       
 }
 var playerList = [];
 /*
@@ -289,7 +324,7 @@ for(var i = 0; i < arr2.length; i++)
 }
 for(var i = 0; i < arr4.length; i++)
 {
-	addPlayer(arr4[i][1], arr4[i][3], "No Salary", arr4[i][16]);
+    addPlayer(arr4[i][1], arr4[i][3], "No Salary", arr4[i][16]);
 }
 */
 /*function changeToLowerCase(arr)
@@ -396,7 +431,7 @@ document.getElementById("results").value += ' ' + teamList.RightFieldVorp;
 document.getElementById("results").value += ' ' + teamList.RightFieldSalary + '\n\n';
 document.getElementById("results").value += teamList.SalaryTotal + '\n\n';
 document.getElementById("results").value += teamList.VorpTotal;
-
+document.getElementById("results").value += '\n\n' + teamBudget;
 /*document.getElementById("results").value += players["matt duffy"].Vorp;
 document.getElementById("results").value += players["matt duffy"].Salary;
 document.getElementById("results").value += players["jung ho kang"].Vorp;
