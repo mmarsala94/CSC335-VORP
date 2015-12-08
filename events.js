@@ -1,9 +1,9 @@
 var computeButton = document.getElementById("computeButton");
 var data; 
 computeButton.addEventListener("click", function() {
-	          data = document.getElementById("player-data").value;
-	      
-
+              data = document.getElementById("player-data").value;
+           
+ 
 var splitData = data.split("***");
 //splitData = splitData.toLowerCase();
 //document.getElementById("results").value = splitData;
@@ -19,7 +19,7 @@ for(var i = 0; i < arr.length; i++)
 {
     arr2[i] = arr[i].split("\t");
 }
-
+ 
 var arr3 = splitData[1].split("\n");
 var arr4 = [];
 for(var i = 0; i < arr3.length; i++)
@@ -34,16 +34,16 @@ for(var i = 0; i < arr3.length; i++)
 //document.getElementById("results").value += arr4[86][1] === arr2[742][0];
 var players = {};
 var teamList = {};
-
+ 
 /*function split_Data (dataArr) // will want to insert splitData[0] || splitData[1]
 {
-	var arr = dataArr.split("\n");
-	var resultArr=[];
-	for (var i =0; i<arr.length; i++)
-	{
-	resultArr[i]  = arr[i].split("\t");
-	}
-	return resultArr;
+    var arr = dataArr.split("\n");
+    var resultArr=[];
+    for (var i =0; i<arr.length; i++)
+    {
+    resultArr[i]  = arr[i].split("\t");
+    }
+    return resultArr;
 }//function to split data
 var arr3 = splitData[1].split("\n");
 var arr4 = [];
@@ -51,10 +51,10 @@ for(var i = 0; i < arr3.length; i++)
 {
     arr4[i] = arr3[i].split("\t");
 }
-
+ 
 var newData = split_Data(splitData);
 */
-
+ 
 function addPlayer(name,position,salary,vorp)
 {
     players[name]= {
@@ -65,10 +65,10 @@ function addPlayer(name,position,salary,vorp)
     };
     return players[name];
 }
-
-
-teamList[name] = {
-  
+ 
+function addTeam(number){
+teamList[number] = {
+   
     Pitcher: null,
     PitcherSalary: 0,
     PitcherVorp: 0,
@@ -99,7 +99,7 @@ teamList[name] = {
     SalaryTotal: 0,
     VorpTotal: 0
 };
-
+}
 //This function adds a player to the teamObject
 //A switch statement is used. 
 //Depending on the position of the player, it enters a specific case
@@ -109,19 +109,19 @@ teamList[name] = {
 //From then on, when each case is entered, it checks whether the player has a higher vorp
 //If he does, he replaces the player that was there.
 var teamCap = 6000000;
-
+ 
 function overTeamCap(teamCap, p, runningSalaryTotal)
 {
     if(runningSalaryTotal > teamCap)
     {
         //document.getElementById("results").value += "You're over: " + runningSalaryTotal + '\n';
-        document.getElementById("results").value += "You're over: " + teamList.SalaryTotal + '\n';
+        //document.getElementById("results").value += "You're over: " + teamList.SalaryTotal + '\n';
         return true;
     }
     else
     {
         //document.getElementById("results").value += "You're good: " + runningSalaryTotal +'\n';
-        document.getElementById("results").value += "You're good: " + teamList.SalaryTotal + '\n';
+        //document.getElementById("results").value += "You're good: " + teamList.SalaryTotal + '\n';
         return false;
     }
 }
@@ -129,13 +129,13 @@ var runningSalaryTotal = 0;
 teamList.SalaryTotal = 0;
 function addPlayerToTeam(playerList, i, teamCap)//Realistically, you pass a letter then use that as the player object(name, position, salary, vorp)
 {
-    
+     
         switch (playerList[i].Position) {
   case "p":
   //document.getElementById("results").value += 'yo';
   if(teamList.Pitcher === undefined)
     {
-        
+         
         teamList.Pitcher = playerList[i].Name;
     teamList.PitcherSalary = playerList[i].Salary;
     teamList.PitcherVorp = playerList[i].Vorp;
@@ -145,7 +145,7 @@ function addPlayerToTeam(playerList, i, teamCap)//Realistically, you pass a lett
     }
     else if(teamList.PitcherVorp < playerList[i].Vorp)
     {
-        
+         
         teamList.Pitcher = playerList[i].Name;
     teamList.PitcherSalary = playerList[i].Salary;
     teamList.PitcherVorp = playerList[i].Vorp;
@@ -337,7 +337,7 @@ function addPlayerToTeam(playerList, i, teamCap)//Realistically, you pass a lett
   default:
     console.log("There's no way you can get here. Every player has a position.");
 }
-
+ 
     //teamList.SalaryTotal = teamList.LeftFieldSalary + teamList.CenterFieldSalary + teamList.RightFieldSalary + teamList.ShortStopSalary+ teamList.ThirdBaseSalary + teamList.SecondBaseSalary + teamList.FirstBaseSalary + teamList.PitcherSalary + teamList.CatcherSalary;
     overTeamCap(teamCap, teamList, runningSalaryTotal);
     teamList.VorpTotal = teamList.LeftFieldVorp + teamList.CenterFieldVorp + teamList.RightFieldVorp + teamList.ShortStopVorp + teamList.ThirdBaseVorp + teamList.SecondBaseVorp + teamList. FirstBaseVorp + teamList.CatcherVorp + teamList.PitcherVorp;         
@@ -350,7 +350,7 @@ for(var i = 0; i < arr2.length; i++)
 }
 for(var i = 0; i < arr4.length; i++)
 {
-	addPlayer(arr4[i][1], arr4[i][3], "No Salary", arr4[i][16]);
+    addPlayer(arr4[i][1], arr4[i][3], "No Salary", arr4[i][16]);
 }
 */
 /*function changeToLowerCase(arr)
@@ -389,24 +389,118 @@ for(var i = 0; i < arr4.length; i++)
         if(arr4[i][1] === arr2[j][0])
         {
             playerList.push(addPlayer(arr4[i][1], arr4[i][3], arr2[j][3], arr4[i][16]));// I changed position from arr2[j][2] to arr4[i][3]. This way, we pull position from the vorp data instead of the salary data.
-            
+             
         }
     }
 }
-
+//function vorpIsGreaterThanZero(p){
+   // document.getElementById("results").value += playerList.Vorp;
+//}
+//playerList.ForEach(vorpIsGreaterThanZero);
 //playerList.push(players["Matt Duffy"]);
 //playerList.push(players["Josh Hamilton"]);
-
-
+ 
+ 
 //document.getElementById("results").value = newData; 
-
+ 
 for(i=0 ; i< playerList.length; i++){
     playerList[i].Vorp = Number(playerList[i].Vorp);
     playerList[i].Salary = Number((playerList[i].Salary).slice(1).replace(/,/g,''));
     //document.getElementById("results").value += playerList[i].Name + ' ' + playerList[i].Position + ' ' + playerList[i].Salary + ' ' + playerList[i].Vorp + '\n';
-    addPlayerToTeam(playerList, i, teamCap); //This just adds players until the end of the list. So, the last of each position should be filled
+   // addPlayerToTeam(playerList, i, teamCap); //This just adds players until the end of the list. So, the last of each position should be filled
 //document.getElementById("results").value += Number(playerList[i].Vorp) + ' ' + Number((playerList[i].Salary).slice(1).replace(/,/g,'')) + '\n' ;
 }
+var p = [];
+var c = [];
+var totalVorp = [];
+var totalSalary = [];
+/*
+function addTeamm(number,vorpTotal,salaryTotal)
+{
+    t[number]= {
+        vorpTotal: vorpTotal,
+        salaryTotal: salaryTotal
+    };
+    return t[number];
+}*/
+ 
+var pitcherCounter = 1;
+var catcherCounter = 1;
+ 
+for(var i = 0; i < playerList.length; i++)
+{
+    if(playerList[i].Position === 'p')
+    {   
+        p[pitcherCounter] = playerList[i];
+        pitcherCounter += 1;
+    }
+    /*if(playerList[i].Position === 'c')
+    {
+        c[i] = playerList[i];
+    }*/
+ 
+}
+//document.getElementById("results").value = p[0].Position;
+ 
+p[0] = addPlayer('undefined','p', 0, 0);
+c[0] = addPlayer('undefined','c', 0, 0);
+//document.getElementById("results").value = p[0].Name;
+ 
+/*for(var i = 0; i < p.length+1; i++)
+{
+    document.getElementById("results").value += p[i].Name + ' ' + p[i].Vorp + ' ' + p[i].Salary + ' ' + p[i].Position;
+}*/
+ 
+for(var i = 0; i < playerList.length; i++)
+{
+    if(playerList[i].Position === 'c')
+    {   
+        c[catcherCounter] = playerList[i];
+        catcherCounter += 1;
+    }
+    /*if(playerList[i].Position === 'c')
+    {
+        c[i] = playerList[i];
+    }*/
+ 
+}
+totalCounter = 0;
+ var teamListt = [];
+ console.log(c);
+for(var i = 0; i < p.length; i++)
+{
+    for(var j = 0; j < c.length; j++)
+    {
+        var pitcher = p[i];
+        var catcher = c[j];
+        //console.log(catcher);
+        var pitcherAndCatcher = {
+            pitcherName: pitcher.Name,
+            catcherName: catcher.Name,
+            salaryTotal: pitcher.Salary + catcher.Salary,
+            vorpTotal: pitcher.Vorp + catcher.Vorp
+        };
+        teamListt.push(pitcherAndCatcher);
+
+        //addTeamm(totalCounter, p[i].Vorp + c[i].Vorp, p[i].Salary + c[i].Salary);
+        //t[totalCounter].salaryTotal = p[i].Salary + c[j].Salary;
+        //t[totalCounter].vorpTotal = p[i].Vorp + c[j].Vorp; YOU REALLY NEED TO GET OBJECT TO WORK. SO YOU CAN HAVE THE PLAYERS AND THEIR SPECIFIC VORPS FILLED IN AS WELL. IN THE END. YOU ARE PRINTING PLAYERS AND TOTAL VORP
+        //totalSalary[totalCounter] = p[i].Salary + c[j].Salary;
+        //totalVorp[totalCounter] = p[i].Vorp + c[j].Vorp;
+        totalCounter += 1;
+    }
+}
+//document.getElementById("results").value = totalSalary[0];
+//document.getElementById("results").value += totalVorp[0];
+ 
+for(var i = 0; i <teamListt.length; i++)
+{
+    document.getElementById("results").value += teamListt[i].pitcherName;
+    //document.getElementById("results").value += totalSalary[i] + ' ' + totalVorp[i] + '\n'; 
+    //document.getElementById("results").value += t[i] + ' ';
+    //document.getElementById("results").value += t[i].Salary + '\n';
+}
+ 
 teamList.SalaryTotal = teamList.PitcherSalary;
 teamList.SalaryTotal += teamList.CatcherSalary;
 teamList.SalaryTotal += teamList.FirstBaseSalary;
@@ -428,8 +522,8 @@ teamList.VorpTotal += teamList.CenterFieldVorp;
 //document.getElementById("results").value = teamList.SalaryTotal;
 //document.getElementById("results").value += teamList.VorpTotal;
 //These all test and work except the last two. I think because they don't get reset and may be getting increased to too big of a number.
-
-document.getElementById("results").value += teamList.Pitcher;
+ 
+/*document.getElementById("results").value += teamList.Pitcher;
 document.getElementById("results").value += ' ' + teamList.PitcherVorp;
 document.getElementById("results").value += ' ' + teamList.PitcherSalary + '\n\n';
 document.getElementById("results").value += teamList.Catcher;
@@ -458,9 +552,9 @@ document.getElementById("results").value += ' ' + teamList.RightFieldVorp;
 document.getElementById("results").value += ' ' + teamList.RightFieldSalary + '\n\n';
 document.getElementById("results").value += teamList.SalaryTotal + '\n\n';
 document.getElementById("results").value += teamList.VorpTotal;
-
+*/
 //overTeamCap(teamCap, teamList);
-
+ 
 /*document.getElementById("results").value += players["matt duffy"].Vorp;
 document.getElementById("results").value += players["matt duffy"].Salary;
 document.getElementById("results").value += players["jung ho kang"].Vorp;
