@@ -65,7 +65,7 @@ function addPlayer(name,position,salary,vorp)
     };
     return players[name];
 }
- 
+ /*
 function addTeam(number){
 teamList[number] = {
    
@@ -125,10 +125,224 @@ function overTeamCap(teamCap, p, runningSalaryTotal)
         return false;
     }
 }
-
 var runningSalaryTotal = 0;
 teamList.SalaryTotal = 0;
-
+function addPlayerToTeam(playerList, i, teamCap)//Realistically, you pass a letter then use that as the player object(name, position, salary, vorp)
+{
+     
+        switch (playerList[i].Position) {
+  case "p":
+  //document.getElementById("results").value += 'yo';
+  if(teamList.Pitcher === undefined)
+    {
+         
+        teamList.Pitcher = playerList[i].Name;
+    teamList.PitcherSalary = playerList[i].Salary;
+    teamList.PitcherVorp = playerList[i].Vorp;
+    runningSalaryTotal += playerList[i].Salary;
+    teamList.SalaryTotal += playerList[i].Salary;
+    //teamList.SalaryTotal += playerList[i].Salary;
+    }
+    else if(teamList.PitcherVorp < playerList[i].Vorp)
+    {
+         
+        teamList.Pitcher = playerList[i].Name;
+    teamList.PitcherSalary = playerList[i].Salary;
+    teamList.PitcherVorp = playerList[i].Vorp;
+    runningSalaryTotal += playerList[i].Salary;
+    teamList.SalaryTotal += playerList[i].Salary;
+    }
+    //teamList.Pitcher = playerList[i].Name;
+    //teamList.PitcherSalary = playerList[i].Salary;
+    //teamList.PitcherVorp = playerList[i].Vorp;
+    //teamList.SalaryTotal += playerList[i].Salary;
+    //teamList.VorpTotal += playerList[i].Vorp;
+    break;
+  case "c":
+    if(teamList.Catcher === undefined)
+    {teamList.Catcher = playerList[i].Name;
+    teamList.CatcherSalary = playerList[i].Salary;
+    teamList.CatcherVorp = playerList[i].Vorp;
+    runningSalaryTotal += playerList[i].Salary;
+    teamList.SalaryTotal += playerList[i].Salary;
+    }
+    else if(teamList.CatcherVorp < playerList[i].Vorp)
+    {
+        teamList.Catcher = playerList[i].Name;
+    teamList.CatcherSalary = playerList[i].Salary;
+    teamList.CatcherVorp = playerList[i].Vorp;
+    runningSalaryTotal += playerList[i].Salary;
+    teamList.SalaryTotal += playerList[i].Salary;
+    }
+    //teamList.Catcher = playerList[i].Name;
+    //teamList.CatcherSalary = playerList[i].Salary;
+    //teamList.CatcherVorp = playerList[i].Vorp;
+    //teamList.SalaryTotal += playerList[i].Salary;
+    //teamList.VorpTotal += playerList[i].Vorp;
+    break;
+  case "1b":
+    if(teamList.FirstBase === undefined)
+    {teamList.FirstBase = playerList[i].Name;
+    teamList.FirstBaseSalary = playerList[i].Salary;
+    teamList.FirstBaseVorp = playerList[i].Vorp;
+    runningSalaryTotal += playerList[i].Salary;
+    teamList.SalaryTotal += playerList[i].Salary;
+    }
+    else if(teamList.FirstBaseVorp < playerList[i].Vorp)
+    {
+        teamList.FirstBase = playerList[i].Name;
+    teamList.FirstBaseSalary = playerList[i].Salary;
+    teamList.FirstBaseVorp = playerList[i].Vorp;
+    runningSalaryTotal += playerList[i].Salary;
+    teamList.SalaryTotal += playerList[i].Salary;
+    }
+    //teamList.FirstBase = playerList[i].Name;
+    //teamList.FirstBaseSalary = playerList[i].Salary;
+    //teamList.FirstBaseVorp = playerList[i].Vorp;
+    //teamList.SalaryTotal += playerList[i].Salary;
+    //teamList.VorpTotal += playerList[i].Vorp;
+    break;
+  case "2b":
+    if(teamList.SecondBase === undefined)
+    {teamList.SecondBase = playerList[i].Name;
+    teamList.SecondBaseSalary = playerList[i].Salary;
+    teamList.SecondBaseVorp = playerList[i].Vorp;
+    runningSalaryTotal += playerList[i].Salary;
+    teamList.SalaryTotal += playerList[i].Salary;
+    }
+    else if(teamList.SecondBaseVorp < playerList[i].Vorp)
+    {
+        teamList.SecondBase = playerList[i].Name;
+    teamList.SecondBaseSalary = playerList[i].Salary;
+    teamList.SecondBaseVorp = playerList[i].Vorp;
+    runningSalaryTotal += playerList[i].Salary;
+    teamList.SalaryTotal += playerList[i].Salary;
+    }
+    //teamList.SecondBase = playerList[i].Name;
+    //teamList.SecondBaseSalary = playerList[i].Salary;
+    //teamList.SecondBaseVorp = playerList[i].Vorp;
+    //teamList.SalaryTotal += playerList[i].Salary;
+    //teamList.VorpTotal += playerList[i].Vorp;
+    break;
+  case "3b":
+    if(teamList.ThirdBase === undefined)
+    {teamList.ThirdBase = playerList[i].Name;
+    teamList.ThirdBaseSalary = playerList[i].Salary;
+    teamList.ThirdBaseVorp = playerList[i].Vorp;
+    runningSalaryTotal += playerList[i].Salary;
+    teamList.SalaryTotal += playerList[i].Salary;
+    }
+    else if(teamList.ThirdBaseVorp < playerList[i].Vorp)
+    {
+        teamList.ThirdBase = playerList[i].Name;
+    teamList.ThirdBaseSalary = playerList[i].Salary;
+    teamList.ThirdBaseVorp = playerList[i].Vorp;
+    runningSalaryTotal += playerList[i].Salary;
+    teamList.SalaryTotal += playerList[i].Salary;
+    }
+    //teamList.ThirdBase = playerList[i].Name;
+    //teamList.ThirdBaseSalary = playerList[i].Salary;
+    //teamList.ThirdBaseVorp = playerList[i].Vorp;
+    //teamList.SalaryTotal += playerList[i].Salary;
+    //teamList.VorpTotal += playerList[i].Vorp;
+    break;
+  case "ss":
+    if(teamList.ShortStop === undefined)
+    {teamList.ShortStop = playerList[i].Name;
+    teamList.ShortStopSalary = playerList[i].Salary;
+    teamList.ShortStopVorp = playerList[i].Vorp;
+    runningSalaryTotal += playerList[i].Salary;
+    teamList.SalaryTotal += playerList[i].Salary;
+    }
+    else if(teamList.ShortStopVorp < playerList[i].Vorp)
+    {
+        teamList.ShortStop = playerList[i].Name;
+    teamList.ShortStopSalary = playerList[i].Salary;
+    teamList.ShortStopVorp = playerList[i].Vorp;
+    runningSalaryTotal += playerList[i].Salary;
+    teamList.SalaryTotal += playerList[i].Salary;
+    }
+    //teamList.ShortStop = playerList[i].Name;
+    //teamList.ShortStopSalary = playerList[i].Salary;
+    //teamList.ShortStopVorp = playerList[i].Vorp;
+    //teamList.SalaryTotal += playerList[i].Salary;
+    //teamList.VorpTotal += playerList[i].Vorp;
+    break;
+  case "lf":
+    if(teamList.LeftField === undefined)
+    {teamList.LeftField = playerList[i].Name;
+    teamList.LeftFieldSalary = playerList[i].Salary;
+    teamList.LeftFieldVorp = playerList[i].Vorp;
+    runningSalaryTotal += playerList[i].Salary;
+    teamList.SalaryTotal += playerList[i].Salary;
+    }
+    else if(teamList.LeftFieldVorp < playerList[i].Vorp)
+    {
+        teamList.LeftField = playerList[i].Name;
+    teamList.LeftFieldSalary = playerList[i].Salary;
+    teamList.LeftFieldVorp = playerList[i].Vorp;
+    runningSalaryTotal += playerList[i].Salary;
+    teamList.SalaryTotal += playerList[i].Salary;
+    }
+    //teamList.LeftField = playerList[i].Name;
+    //teamList.LeftFieldSalary = playerList[i].Salary;
+    //teamList.LeftFieldVorp = playerList[i].Vorp;
+    //teamList.SalaryTotal += playerList[i].Salary;
+    //teamList.VorpTotal += playerList[i].Vorp;
+    break;
+  case "cf":
+    if(teamList.CenterField === undefined)
+    {teamList.CenterField = playerList[i].Name;
+    teamList.CenterFieldSalary = playerList[i].Salary;
+    teamList.CenterFieldVorp = playerList[i].Vorp;
+    runningSalaryTotal += playerList[i].Salary;
+    teamList.SalaryTotal += playerList[i].Salary;
+    }
+    else if(teamList.CenterFieldVorp < playerList[i].Vorp)
+    {
+        teamList.CenterField = playerList[i].Name;
+    teamList.CenterFieldSalary = playerList[i].Salary;
+    teamList.CenterFieldVorp = playerList[i].Vorp;
+    runningSalaryTotal += playerList[i].Salary;
+    teamList.SalaryTotal += playerList[i].Salary;
+    }
+    //teamList.CenterField = playerList[i].Name;
+    //teamList.CenterFieldSalary = playerList[i].Salary;
+    //teamList.CenterFieldVorp = playerList[i].Vorp;
+    //teamList.SalaryTotal += playerList[i].Salary;
+    //teamList.VorpTotal += playerList[i].Vorp;
+    break;
+  case "rf":
+    if(teamList.RightField === undefined)
+    {teamList.RightField = playerList[i].Name;
+    teamList.RightFieldSalary = playerList[i].Salary;
+    teamList.RightFieldVorp = playerList[i].Vorp;
+    runningSalaryTotal += playerList[i].Salary;
+    teamList.SalaryTotal += playerList[i].Salary;
+    }
+    else if(teamList.RightFieldVorp < playerList[i].Vorp)
+    {
+        teamList.RightField = playerList[i].Name;
+    teamList.RightFieldSalary = playerList[i].Salary;
+    teamList.RightFieldVorp = playerList[i].Vorp;
+    runningSalaryTotal += playerList[i].Salary;
+    teamList.SalaryTotal += playerList[i].Salary;
+    }
+    //teamList.RightField = playerList[i].Name;
+    //teamList.RightFieldSalary = playerList[i].Salary;
+    //teamList.RightFieldVorp= playerList[i].Vorp;
+    //teamList.SalaryTotal = teamList.RightFieldSalary;
+    //teamList.VorpTotal = playerList[i].Vorp;
+    break;
+  default:
+    console.log("There's no way you can get here. Every player has a position.");
+}
+ 
+    //teamList.SalaryTotal = teamList.LeftFieldSalary + teamList.CenterFieldSalary + teamList.RightFieldSalary + teamList.ShortStopSalary+ teamList.ThirdBaseSalary + teamList.SecondBaseSalary + teamList.FirstBaseSalary + teamList.PitcherSalary + teamList.CatcherSalary;
+    overTeamCap(teamCap, teamList, runningSalaryTotal);
+    teamList.VorpTotal = teamList.LeftFieldVorp + teamList.CenterFieldVorp + teamList.RightFieldVorp + teamList.ShortStopVorp + teamList.ThirdBaseVorp + teamList.SecondBaseVorp + teamList. FirstBaseVorp + teamList.CatcherVorp + teamList.PitcherVorp;         
+}
+*/
 var playerList = [];
 /*
 for(var i = 0; i < arr2.length; i++)
@@ -199,6 +413,7 @@ for(i=0 ; i< playerList.length; i++){
 }
 var p = [];
 var c = [];
+var firstBase = [];
 var totalVorp = [];
 var totalSalary = [];
 /*
@@ -213,6 +428,7 @@ function addTeamm(number,vorpTotal,salaryTotal)
  
 var pitcherCounter = 1;
 var catcherCounter = 1;
+var firstBaseCounter = 1;
  
 for(var i = 0; i < playerList.length; i++)
 {
@@ -231,6 +447,7 @@ for(var i = 0; i < playerList.length; i++)
  
 p[0] = addPlayer('undefined','p', 0, 0);
 c[0] = addPlayer('undefined','c', 0, 0);
+firstBase[0] = addPlayer('undefined', '1b', 0, 0);
 //document.getElementById("results").value = p[0].Name;
  
 /*for(var i = 0; i < p.length+1; i++)
@@ -245,12 +462,18 @@ for(var i = 0; i < playerList.length; i++)
         c[catcherCounter] = playerList[i];
         catcherCounter += 1;
     }
-    /*if(playerList[i].Position === 'c')
-    {
-        c[i] = playerList[i];
-    }*/
  
 }
+for(var i = 0; i < playerList.length; i++)
+{
+    if(playerList[i].Position === '1b')
+    {   
+        firstBase[firstBaseCounter] = playerList[i];
+        firstBaseCounter += 1;
+    }
+ 
+}
+
 totalCounter = 0;
  var teamListt = [];
  console.log(c);
@@ -258,9 +481,23 @@ for(var i = 0; i < p.length; i++)
 {
     for(var j = 0; j < c.length; j++)
     {
+        for(var k = 0; k < firstBase.length; k++)
+        {
         var pitcher = p[i];
         var catcher = c[j];
+        var firstBaseman = firstBase[k];
+
+        var team = {
+            pitcherName: pitcher.Name,
+            catcherName: catcher.Name,
+            firstBaseName: firstBaseman.Name,
+            salaryTotal: pitcher.Salary + catcher.Salary + firstBaseman.Salary,
+            vorpTotal: pitcher.Vorp + catcher.Vorp + firstBaseman.Vorp
+
+        }
+        teamListt.push(team);
         //console.log(catcher);
+        /*
         var pitcherAndCatcher = {
             pitcherName: pitcher.Name,
             catcherName: catcher.Name,
@@ -268,32 +505,54 @@ for(var i = 0; i < p.length; i++)
             vorpTotal: pitcher.Vorp + catcher.Vorp
         };
         teamListt.push(pitcherAndCatcher);
-
+        var 1stAndPitcher = {
+            1stBasemanName: 1stBaseman.Name,
+            pitcherName: pitcher.Name,
+            salaryTotal: pitcher.Salary + 1stBaseman.Salary,
+            vorpTotal: pitcher.Vorp + 1stBaseman.Vorp
+        }
+        teamListt.push(1stAndPitcher);
+        var 1stAndCatcher = {
+            1stBasemanName: 1stBaseman.Name,
+            catcherName: catcher.Name,
+            salaryTotal: catcher.Salary + 1stBaseman.Salary,
+            vorpTotal: catcher.Vorp + 1stBaseman.Vorp
+        }
+        teamListt.push(1stAndCatcher);
+        var 1stPitcherAndCatcher = {
+            1stBasemanName: 1stBaseman.Name,
+            catcherName: catcher.Name,
+            pitcherName: pitcher.Name,
+            salaryTotal: 1stBaseman.Salary + pitcherAndCatcher.salaryTotal,
+            vorpTotal: 1stBaseman.Vorp + pitcherAndCatcher.salaryTotal
+        }
+        */
         //addTeamm(totalCounter, p[i].Vorp + c[i].Vorp, p[i].Salary + c[i].Salary);
         //t[totalCounter].salaryTotal = p[i].Salary + c[j].Salary;
         //t[totalCounter].vorpTotal = p[i].Vorp + c[j].Vorp; YOU REALLY NEED TO GET OBJECT TO WORK. SO YOU CAN HAVE THE PLAYERS AND THEIR SPECIFIC VORPS FILLED IN AS WELL. IN THE END. YOU ARE PRINTING PLAYERS AND TOTAL VORP
         //totalSalary[totalCounter] = p[i].Salary + c[j].Salary;
         //totalVorp[totalCounter] = p[i].Vorp + c[j].Vorp;
         //totalCounter += 1;
+        }
     }
 }
 //document.getElementById("results").value = totalSalary[0];
 //document.getElementById("results").value += totalVorp[0];
 var teamCap = 700000;
-console.log(teamCap);
+/*console.log(teamCap);
  teamListt = teamListt.filter(function(ele, i)
  {
     //console.log( teamListt[i].catche === 'roberto perez');
     //console.log(teamCap);
     return teamListt[i].salaryTotal <= teamCap;
- });
+ });*/
 //teamListt = teamListt.filter(function(){
 
 //}
 
 for(var i = 0; i <teamListt.length; i++)
 {
-    document.getElementById("results").value += teamListt[i].pitcherName + ' ' + teamListt[i].catcherName + ' ' + teamListt[i].salaryTotal + ' ' + teamListt[i].vorpTotal + '\n';
+    document.getElementById("results").value += teamListt[i].pitcherName + ' ' + teamListt[i].catcherName + ' ' + teamListt[i].firstBaseName + ' ' + teamListt[i].salaryTotal + ' ' + teamListt[i].vorpTotal + '\n';
     //document.getElementById("results").value += totalSalary[i] + ' ' + totalVorp[i] + '\n'; 
     //document.getElementById("results").value += t[i] + ' ';
     //document.getElementById("results").value += t[i].Salary + '\n';
