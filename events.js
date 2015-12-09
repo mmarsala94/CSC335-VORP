@@ -75,30 +75,60 @@ computeButton.addEventListener("click", function() {
 
   function createTeam(p, c, 1b, 2b, ss, 3b, cf, rf, lf, currentTeams)
   {
-    var team = {p[0], c[0], 1b[0], 2b[0], ss[0], 3b[0], cf[0], rf[0], lf[0]};
+    var team = {p[p.length-1], c[c.length-1], 1b[1b.length-1], 2b[2b.length-1], ss[ss.length-1], 3b[3b.length-1], cf[cf.length-1], rf[rf.length-1], lf[lf.length-1]};
     currentTeams.push(team);
 
+    if (p.length > 0)
+    {
+        p.pop();
+        createTeam(p, c, 1b, 2b, ss, 3b, cf, rf, lf, currentTeams);
+    }
+    if (c.length > 0)
+    {
+        c.pop();
+        createTeam(p, c, 1b, 2b, ss, 3b, cf, rf, lf, currentTeams);
+    }
+    if (1b.length > 0)
+    {
+        1b.pop();
+        createTeam(p, c, 1b, 2b, ss, 3b, cf, rf, lf, currentTeams);
+    }
+    if (2b.length > 0)
+    {
+        2b.pop();
+        createTeam(p, c, 1b, 2b, ss, 3b, cf, rf, lf, currentTeams);
+    }
+    if (ss.length > 0)
+    {
+        ss.pop();
+        createTeam(p, c, 1b, 2b, ss, 3b, cf, rf, lf, currentTeams);
+    }
+    if (3b.length > 0)
+    {
+        3b.pop();
+        createTeam(p, c, 1b, 2b, ss, 3b, cf, rf, lf, currentTeams);
+    }
+    if (cf.length > 0)
+    {
+        cf.pop();
+        createTeam(p, c, 1b, 2b, ss, 3b, cf, rf, lf, currentTeams);
+    }
+    if (rf.length > 0)
+    {
+        rf.pop();
+        createTeam(p, c, 1b, 2b, ss, 3b, cf, rf, lf, currentTeams);
+    }
+    if (lf.length > 0)
+    {
+        lf.pop();
+        createTeam(p, c, 1b, 2b, ss, 3b, cf, rf, lf, currentTeams);
+    }
     if (p.lenghth === 0 && c.length === 0 && 1b.length === 0 && 2b.length === 0 && ss.length === 0 && 3b.length === 0 && cf.length === 0 && rf.length === 0 && lf.length === 0)
     {
         return team;
     }
-    else
-    {
-        p.pop();
-        createTeam(p, c, 1b, 2b, ss, 3b, cf, rf, lf, currentTeams);
-        c.pop();
-        createTeam(p, c, 1b, 2b, ss, 3b, cf, rf, lf, currentTeams);
-        1b.pop();
-        createTeam(p, c, 1b, 2b, ss, 3b, cf, rf, lf, currentTeams);
-        2b.pop();
-        createTeam(p, c, 1b, 2b, ss, 3b, cf, rf, lf, currentTeams);
-        ss.pop();
-        createTeam(p, c, 1b, 2b, ss, 3b, cf, rf, lf, currentTeams);
-        3b.pop();
-        createTeam(p, c, 1b, 2b, ss, 3b, cf, rf, lf, currentTeams);
-
-    }
   }
+
 
   var playerList = [];
 
