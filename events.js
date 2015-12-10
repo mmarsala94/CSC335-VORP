@@ -71,11 +71,12 @@ computeButton.addEventListener("click", function() {
     };
   }
 
-    var possibleTeams = {};
+  var possibleTeams = {};
 
   function createTeam(p, c, first, second, ss, third, cf, rf, lf, currentTeams)
   {
-    var team = {p[p.length-1], c[c.length-1], first[first.length-1], second[second.length-1], ss[ss.length-1], third[third.length-1], cf[cf.length-1], rf[rf.length-1], lf[lf.length-1]};
+    var team = {p[p.length-1], c[c.length-1], first[first.length-1], second[second.length-1], ss[ss.length-1], third[third.length-1],
+     cf[cf.length-1], rf[rf.length-1], lf[lf.length-1]};
     currentTeams.push(team);
 
     if (p.length > 0)
@@ -88,14 +89,14 @@ computeButton.addEventListener("click", function() {
         c.pop();
         createTeam(p, c, first, second, ss, third, cf, rf, lf, currentTeams);
     }
-    if (1b.length > 0)
+    if (first.length > 0)
     {
-        1b.pop();
+        first.pop();
         createTeam(p, c, first, second, ss, third, cf, rf, lf, currentTeams);
     }
-    if (2b.length > 0)
+    if (second.length > 0)
     {
-        2b.pop();
+        second.pop();
         createTeam(p, c, first, second, ss, third, cf, rf, lf, currentTeams);
     }
     if (ss.length > 0)
@@ -103,9 +104,9 @@ computeButton.addEventListener("click", function() {
         ss.pop();
         createTeam(p, c, first, second, ss, third, cf, rf, lf, currentTeams);
     }
-    if (3b.length > 0)
+    if (third.length > 0)
     {
-        3b.pop();
+        third.pop();
         createTeam(p, c, first, second, ss, third, cf, rf, lf, currentTeams);
     }
     if (cf.length > 0)
@@ -123,12 +124,12 @@ computeButton.addEventListener("click", function() {
         lf.pop();
         createTeam(p, c, first, second, ss, third, cf, rf, lf, currentTeams);
     }
-    if (p.lenghth === 0 && c.length === 0 && first.length === 0 && 2b.length === 0 && ss.length === 0 && third.length === 0 && cf.length === 0 && rf.length === 0 && lf.length === 0)
+    if (p.lenghth === 0 && c.length === 0 && first.length === 0 && 2b.length === 0 && ss.length === 0 && third.length === 0
+     && cf.length === 0 && rf.length === 0 && lf.length === 0)
     {
         return team;
     }
   }
-
 
   var playerList = [];
 
