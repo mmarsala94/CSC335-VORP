@@ -145,6 +145,27 @@ computeButton.addEventListener("click", function() {
     }
   }
 
+
+function positionArr(pos,list)
+{
+    var playerCounter = 1;
+    var Arr = [];
+    for (var i = 0; i<playerList.length;i++)
+    {
+        
+        if(playerList[i].Position === pos)
+        {
+            Arr[playerCounter] = playerList[i];
+            playerCounter +=1; 
+        }
+    }
+    return Arr;
+}// function for mapping players of a postition to their position array
+// pass the characters associated with that position to pos     ex. pitcher would be  pos = 'p'
+ 
+ 
+ 
+ 
   function addPlayerPosition()
 
   for (i = 0; i < playerList.length; i++) 
