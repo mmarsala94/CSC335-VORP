@@ -132,20 +132,67 @@ cf = positionArr('cf', playerList);
 // cf[0] = addPlayer('undefined', 'cf', 0, 0);
 // rf[0] = addPlayer('undefined', 'rf', 0, 0);
     var positions = [];
-    positions[0] = positionArr('p', p);
-    positions[1] = positionArr('c', c);
-    positions[2] = positionArr('1b', first);
-    positions[3] = positionArr('2b', second);
-    positions[4] = positionArr('3b', third);
-    positions[5] = positionArr('ss', ss);
-    positions[6] = positionArr('lf', lf);
-    positions[7] = positionArr('rf', rf);
-    positions[8] = positionArr('cf', cf);
+    // positions[0] = 'p';
+    // positions[1] = 'c';
+    // positions[2] = 'first';
+    // positions[3] = 'second';
+    // positions[4] = 'third';
+    // positions[5] = 'ss';
+    // positions[6] = 'lf';
+    // positions[7] = 'rf';
+    // positions[8] = 'cf';
+
+    // for(var i = 0; i < p.length; i++)
+    // {
+    //     positions[0].push(p[i]);
+    // }
+    // for(var i = 0; i < c.length; i++)
+    // {
+    //     positions[1].push(c[i]);
+    // }
+    // for(var i = 0; i < first.length; first++)
+    // {
+    //     positions[2].push(first[i]);
+    // }
+    // for(var i = 0; i < second.length; second++)
+    // {
+    //     positions[3].push(second[i]);
+    // }
+    // for(var i = 0; i < third.length; third++)
+    // {
+    //     positions[4].push(third[i]);
+    // }
+    // for(var i = 0; i < ss.length; ss++)
+    // {
+    //     positions[5].push(ss[i]);
+    // }
+    // for(var i = 0; i < lf.length; lf++)
+    // {
+    //     positions[6].push(lf[i]);
+    // }
+    // for(var i = 0; i < rf.length; rf++)
+    // {
+    //     positions[7].push(rf[i]);
+    // }
+    // for(var i = 0; i < cf.length; cf++)
+    // {
+    //     positions[8].push(cf[i]);
+    // }
+    positions[0] = (positionArr('p', p));
+    positions[1] = (positionArr('c', c));
+    positions[2] = (positionArr('1b', first));
+    positions[3] = (positionArr('2b', second));
+    positions[4] = (positionArr('3b', third));
+    positions[5] = (positionArr('ss', ss));
+    positions[6] = (positionArr('lf', lf));
+    positions[7] = (positionArr('rf', rf));
+    positions[8] = (positionArr('cf', cf));
 
     // function addToPosition(position, playerList)
     // {
     //     for (var i = 0; i < playerList.length; i++)
     //     {
+            
     //         if (playerList[i].position === 'p')
     //         {
     //             position[0].push(playerList[i]);
@@ -195,7 +242,7 @@ cf = positionArr('cf', playerList);
     {
         for(var j = 0; j < positions[i].length; j++)
         {
-            document.getElementById("results").value += positions[i][j].Name;
+            //document.getElementById("results").value += positions[i][j].Name;
             //console.log(typeof(positions[i][j]));
         }
     }
@@ -213,9 +260,10 @@ cf = positionArr('cf', playerList);
             console.log(positions[index][ind].Name + ' ' + positions[index][ind].Salary + ' ' + positions[index][ind].Vorp + '\n');
         });
     });
-    
-    function maxVorp(salaryCap, positions)
+    positionsMutable = positions.slice();
+    function maxVorp(salaryCap, position)//positionsMutable)
     {
+        //var testPositions = [];
         if (positions === []) //if position is empty
         {
             return [];
@@ -226,36 +274,46 @@ cf = positionArr('cf', playerList);
         // }
         var maxVorpSoFar = 0;
         var maxVorpArr = [];
-
+        var arr = [];
+        var tempVorp = 0;
         positions.forEach(function(playersForOnePosition, i){
-            var arr;
-            var tempVorp = 0;
+            // var arr;
+            // var tempVorp = 0;
             playersForOnePosition.forEach(function(player, j){
                 if(salaryCap - playersForOnePosition[j].Salary >= 0)
                 {
-                    arr = playersForOnePosition[j].concat(maxVorp(positions.pop(), salaryCap - playersForOnePosition[j].Salary));
+                    document.getElementById("results").value += salaryCap - playersForOnePosition[j].Salary + '\n';
+                    positionsMutable = positions;
+                    //positionsMutable.shift();
+                    arr = (maxVorp(salaryCap - playersForOnePosition[j].Salary, positionsMutable.shift())).concat(player);// positionsMutable)).concat(player);
                     arr.forEach(function(ele, k){
                         tempVorp += arr[k].Vorp; 
+                        //document.getElementById("results").value += tempVorp + '\n';
                     });
+                    console.log(tempVorp);
                     if(tempVorp > maxVorpSoFar)
                     {
                         maxVorpSoFar = tempVorp;
                         maxVorpArr = arr;
                     }
                 }
+                document.getElementById("results").value += '\n\n';
             });
+            //document.getElementById("results").value += '\n\n';
         });
-
+        document.getElementById("results").value += maxVorpSoFar;
         // for(var i = 0; i < positions.length; i++)
         // {
-        //     var arr;
-        //     var tempVorp = 0;
-        //     for(var j = 1; j < positions[i].length; j++)
+        //     tempVorp = 0;
+        //     for(var j = 0; j < positions[i].length; j++)
         //     {
-        //         console.log(positions[i][j].Name);
+        //         //testPositions[j] = positions[i][j];
+        //         //console.log(testPositions[j].Name);
         //         if(salaryCap - positions[i][j].Salary >= 0)
         //         {
-        //             arr = positions[i][j].concat(maxVorp(positions.pop(), salaryCap - positions[i][j].Salary));
+        //             //positionsMutable = positions.slice();
+        //             positionsMutable.pop();
+        //             arr = positions[i][j].concat(maxVorp(salaryCap - positions[i][j].Salary, positions, positionsMutable));
         //             arr.forEach(function(ele, k){
         //                 tempVorp += arr[k].Vorp; 
         //             });
@@ -276,10 +334,11 @@ cf = positionArr('cf', playerList);
         //         if (positions )
         //     }
         // }
+        //console.log(maxVorpArr);
         return maxVorpArr;
     }
 
-var maximumVorp = maxVorp(10000000, positions);
+var maximumVorp = maxVorp(10000000, positions)//positionsMutable);
 var vorpTotal;
 var salaryTotal;
 maximumVorp.forEach(function(player){
