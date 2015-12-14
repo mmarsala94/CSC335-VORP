@@ -264,7 +264,7 @@ cf = positionArr('cf', playerList);
     function maxVorp(salaryCap, position)//positionsMutable)
     {
         //var testPositions = [];
-        if (positions === []) //if position is empty
+        if (position === []) //if position is empty
         {
             return [];
         }
@@ -278,14 +278,15 @@ cf = positionArr('cf', playerList);
         var tempVorp = 0;
         positions.forEach(function(playersForOnePosition, i){
             // var arr;
-            // var tempVorp = 0;
+            // tempVorp = 0;
             playersForOnePosition.forEach(function(player, j){
                 if(salaryCap - playersForOnePosition[j].Salary >= 0)
                 {
                     document.getElementById("results").value += salaryCap - playersForOnePosition[j].Salary + '\n';
-                    positionsMutable = positions;
+                    positionsMutable = positions.slice(0);
                     //positionsMutable.shift();
-                    arr = (maxVorp(salaryCap - playersForOnePosition[j].Salary, positionsMutable.shift())).concat(player);// positionsMutable)).concat(player);
+                    arr = (maxVorp(salaryCap - playersForOnePosition[j].Salary, positionsMutable.shift())).concat(player);
+                    document.getElementById("results").value += arr[0].Name + ' ' + arr[0].Position;// positionsMutable)).concat(player);
                     arr.forEach(function(ele, k){
                         tempVorp += arr[k].Vorp; 
                         //document.getElementById("results").value += tempVorp + '\n';
@@ -296,24 +297,25 @@ cf = positionArr('cf', playerList);
                         maxVorpSoFar = tempVorp;
                         maxVorpArr = arr;
                     }
+                    tempVorp = 0;
                 }
                 document.getElementById("results").value += '\n\n';
             });
             //document.getElementById("results").value += '\n\n';
         });
         document.getElementById("results").value += maxVorpSoFar;
-        // for(var i = 0; i < positions.length; i++)
+        // for(var i = 0; i < position.length; i++)
         // {
         //     tempVorp = 0;
-        //     for(var j = 0; j < positions[i].length; j++)
+        //     for(var j = 0; j < position[i].length; j++)
         //     {
         //         //testPositions[j] = positions[i][j];
         //         //console.log(testPositions[j].Name);
-        //         if(salaryCap - positions[i][j].Salary >= 0)
+        //         if(salaryCap - position[i][j].Salary >= 0)
         //         {
         //             //positionsMutable = positions.slice();
-        //             positionsMutable.pop();
-        //             arr = positions[i][j].concat(maxVorp(salaryCap - positions[i][j].Salary, positions, positionsMutable));
+        //             positionsMutable = position.slice();
+        //             arr = position[i][j].concat(maxVorp(salaryCap - position[i][j].Salary, positionsMutable));
         //             arr.forEach(function(ele, k){
         //                 tempVorp += arr[k].Vorp; 
         //             });
@@ -338,7 +340,7 @@ cf = positionArr('cf', playerList);
         return maxVorpArr;
     }
 
-var maximumVorp = maxVorp(10000000, positions)//positionsMutable);
+var maximumVorp = maxVorp(10000000, positions);//positionsMutable);
 var vorpTotal;
 var salaryTotal;
 maximumVorp.forEach(function(player){
