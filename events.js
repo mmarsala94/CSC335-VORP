@@ -94,7 +94,7 @@ function positionArr(pos,list)
     for (var i = 0; i<list.length;i++)
     {
         
-        if(list[i].Position === pos && list[i].Vorp > 0)
+        if(list[i].Position === pos && list[i].Vorp >= 0)
         {
             Arr[playerCounter] = list[i];
             playerCounter +=1; 
@@ -133,15 +133,17 @@ ss = positionArr('ss', playerList);
 lf = positionArr('lf', playerList);
 rf = positionArr('rf', playerList);
 cf = positionArr('cf', playerList);
-// p[p.length+1] = addPlayer('undefined','p', 0, 0);
-// c[c.length+1] = addPlayer('undefined','c', 0, 0);
-// first[first.length+1] = addPlayer('undefined', '1b', 0, 0);
-// second[second.length+1] = addPlayer('undefined', '2b', 0, 0);
-// third[third.length+1] = addPlayer('undefined', '3b', 0, 0);
-// ss[ss.length+1] = addPlayer('undefined', 'ss', 0, 0);
-// lf[lf.length+1] = addPlayer('undefined', 'lf', 0, 0);
-// cf[cf.length+1] = addPlayer('undefined', 'cf', 0, 0);
-// rf[rf.length+1] = addPlayer('undefined', 'rf', 0, 0);
+
+p[p.length] = addPlayer('undefined','p', 0, 0);
+c[c.length] = addPlayer('undefined','c', 0, 0);
+first[first.length] = addPlayer('undefined', '1b', 0, 0);
+second[second.length] = addPlayer('undefined', '2b', 0, 0);
+third[third.length] = addPlayer('undefined', '3b', 0, 0);
+ss[ss.length] = addPlayer('undefined', 'ss', 0, 0);
+lf[lf.length] = addPlayer('undefined', 'lf', 0, 0);
+cf[cf.length] = addPlayer('undefined', 'cf', 0, 0);
+rf[rf.length] = addPlayer('undefined', 'rf', 0, 0);
+
     var positions = [];
     // positions[0] = 'p';
     // positions[1] = 'c';
@@ -274,6 +276,10 @@ cf = positionArr('cf', playerList);
     });
     positionsMutable = positions.slice();
     console.log("Here: ", positions);
+    
+
+    var memo =[];
+
     function maxVorp(salaryCap, position)//positionsMutable)
     {
         //console.log("Here2: ", position);
@@ -307,27 +313,27 @@ cf = positionArr('cf', playerList);
                 {
                     //document.getElementById("results").value += salaryCap - playersForOnePosition[j].Salary + '\n';
                     positionsMutable = position.slice(1);
-                    //positionsMutable.shift();
-                    // if(memo[player.Position, player.Salary] !== undefined)
-                    // {
-                    //     arr = memo[player.Position, player.Salary].concat(player);
-                    //     arr.forEach(function(ele, k){
-                    //     tempVorp += arr[k].Vorp; 
-                    //     //document.getElementById("results").value += tempVorp + '\n';
-                    //     });
-                    // //console.log(tempVorp);
-                    //     if(tempVorp > maxVorpSoFar)
-                    //     {
-                    //         maxVorpSoFar = tempVorp;
-                    //         maxVorpArr = arr;
-                    //     }
-                    //     tempVorp = 0;
-                    // }
-                    // else
-                    // {
-                        arr = (maxVorp(salaryCap - player.Salary, positionsMutable)).concat(player);
-                        // memo[position, playerSalary] =  (maxVorp(salaryCap - player.Salary, positionsMutable));
-                        // arr = memo[position, playerSalary].concat(player);
+                   
+                    if(memo[player.Position, player.Salary] !== undefined)
+                    {
+                        arr = memo[player.Position, player.Salary].concat(player);
+                        arr.forEach(function(ele, k){
+                        tempVorp += arr[k].Vorp; 
+                        //document.getElementById("results").value += tempVorp + '\n';
+                        });
+                    //console.log(tempVorp);
+                        if(tempVorp > maxVorpSoFar)
+                        {
+                            maxVorpSoFar = tempVorp;
+                            maxVorpArr = arr;
+                        }
+                        tempVorp = 0;
+                    }
+                    else
+                    {
+                        // arr = (maxVorp(salaryCap - player.Salary, positionsMutable)).concat(player);
+                        memo[player.Position, player.Salary] =  (maxVorp(salaryCap - player.Salary, positionsMutable));
+                        arr = memo[player.Position, player.Salary].concat(player);
 
                     //document.getElementById("results").value += arr[0].Name + ' ' + arr[0].Position;// positionsMutable)).concat(player);
                         arr.forEach(function(ele, k){
@@ -341,7 +347,7 @@ cf = positionArr('cf', playerList);
                             maxVorpArr = arr;
                         }
                         tempVorp = 0;
-                    //}
+                    }
                 }
                 //document.getElementById("results").value += '\n\n';
             });
@@ -420,7 +426,7 @@ cf = positionArr('cf', playerList);
         return maxVorpArr;
     }
 
-var maximumVorp = maxVorp(100000000, positions);//positionsMutable);
+var maximumVorp = maxVorp(10000000, positions);//positionsMutable);
 var vorpTotal = 0
 var salaryTotal = 0;
 maximumVorp.forEach(function(player){
@@ -428,6 +434,7 @@ maximumVorp.forEach(function(player){
     salaryTotal += player.Salary;
 });
 console.log("MAX:", maximumVorp);
+//console.log(memo);
 
 document.getElementById("results").value += maximumVorp + '\n' + vorpTotal + '\n' + salaryTotal;
 alert(maximumVorp + '\n' + vorpTotal + '\n' + salaryTotal);
