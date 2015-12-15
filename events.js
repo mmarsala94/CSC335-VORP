@@ -93,7 +93,7 @@ function positionArr(pos,list)
     for (var i = 0; i<list.length;i++)
     {
         
-        if(list[i].Position === pos)
+        if(list[i].Position === pos && list[i].Vorp > 0)
         {
             Arr[playerCounter] = list[i];
             playerCounter +=1; 
@@ -341,8 +341,8 @@ cf = positionArr('cf', playerList);
     }
 
 var maximumVorp = maxVorp(10000000, positions);//positionsMutable);
-var vorpTotal;
-var salaryTotal;
+var vorpTotal = 0;
+var salaryTotal = 0;
 maximumVorp.forEach(function(player){
     vorpTotal += player.Vorp;
     salaryTotal += player.Salary;
