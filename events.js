@@ -1,8 +1,8 @@
 var computeButton = document.getElementById("computeButton");
 var data;
 computeButton.addEventListener("click", function() {
+    
     data = document.getElementById("player-data").value;
-
 
     var splitData = data.split("***");
 
@@ -55,37 +55,22 @@ computeButton.addEventListener("click", function() {
         playerList[i].Salary = Number((playerList[i].Salary).slice(1).replace(/,/g, ''));
     }
 
-    var positionsObj = {};
-
-    function addPlayerToPosition(name, position, salary, vorp)
+    // function to add players to position.
+    function addPlayerToPosition(pos,list)
     {
-        positionsObj[position] = {
-            Name: name,
-            Position: position,
-            Salary: salary,
-            Vorp: vorp
-        }
-    }
-/*
-    var positions = [];
-
-    for (var i = 0; i < arr4.length; i++) 
-    {
-        for (var j = 0; j < arr2.length; j++) 
+        var counter = 0;
+        var arry = [];
+        for (var i = 0; i < list.length; i++)
         {
-            if (arr4[i][1] === arr2[j][0]) 
+            if(list[i].Position === pos && list[i].Vorp >= 0)
             {
-                positionsObj.push(addPlayerToPosition(arr4[i][1], arr4[i][3], arr2[j][3], arr4[i][16])); 
+                arry[counter]= list[i];
+                counter += 1;
             }
         }
+        return arry;
     }
 
-    for (i = 0; i < positionsObj.length; i++) 
-    {
-        positionsObj[i].Vorp = Number(positionsObj[i].Vorp);
-        positionsObj[i].Salary = Number((positionsObj[i].Salary).slice(1).replace(/,/g, ''));
-    }
-*/
     var p = [];
     var c = [];
     var first = [];
@@ -96,137 +81,129 @@ computeButton.addEventListener("click", function() {
     var rf = [];
     var lf = [];
 
-    var positions = [p,c,first,second,ss,third,cf,rf,lf];
+    // separate position arrays.
+    p = addPlayerToPosition('p', playerList);
+    c = addPlayerToPosition('c', playerList);
+    first = addPlayerToPosition('1b', playerList);
+    second = addPlayerToPosition('2b', playerList);
+    ss = addPlayerToPosition('ss', playerList);
+    third = addPlayerToPosition('3b', playerList);
+    cf = addPlayerToPosition('cf', playerList);
+    rf = addPlayerToPosition('rf', playerList);
+    lf = addPlayerToPosition('lf', playerList);
 
-    function addToPosition(position, playerList)
-    {
-        for (var i = 0; i < playerList.length-1; i++)
-        {
-            if (playerList[i].position === 'P')
-            {
-                position[0].push(playerList[i]);
-            }
-            if (playerList[i].position === 'C')
-            {
-                position[1].push(playerList[i]);
-            }
-            if (playerList[i].position === '1B')
-            {
-                position[2].push(playerList[i]);
-            }
-            if (playerList[i].position === '2B')
-            {
-                position[3].push(playerList[i]);
-            }
-            if (playerList[i].position === 'SS')
-            {
-                position[4].push(playerList[i]);
-            }
-            if (playerList[i].position === '3B')
-            {
-                position[5].push(playerList[i]);
-            }
-            if (playerList[i].position === 'CF')
-            {
-                position[6].push(playerList[i]);
-            }
-            if (playerList[i].position === 'RF')
-            {
-                position[7].push(playerList[i]);
-            }
-            if (playerList[i].position === 'LF')
-            {
-                position[8].push(playerList[i]);
-            }
-        }
-    }
+    p[p.length] = addPlayer('undefined','p', 0, 0);
+    c[c.length] = addPlayer('undefined','c', 0, 0);
+    first[first.length] = addPlayer('undefined', '1b', 0, 0);
+    second[second.length] = addPlayer('undefined', '2b', 0, 0);
+    third[third.length] = addPlayer('undefined', '3b', 0, 0);
+    ss[ss.length] = addPlayer('undefined', 'ss', 0, 0);
+    lf[lf.length] = addPlayer('undefined', 'lf', 0, 0);
+    cf[cf.length] = addPlayer('undefined', 'cf', 0, 0);
+    rf[rf.length] = addPlayer('undefined', 'rf', 0, 0);
 
-    addToPosition(positions, playerList);
+    var positionsArr = [];
+
+    positionsArr[0] = (addPlayerToPosition('p', p));
+    positionsArr[1] = (addPlayerToPosition('c', c));
+    positionsArr[2] = (addPlayerToPosition('1b', first));
+    positionsArr[3] = (addPlayerToPosition('2b', second));
+    positionsArr[4] = (addPlayerToPosition('ss', ss));
+    positionsArr[5] = (addPlayerToPosition('3b', third));
+    positionsArr[6] = (addPlayerToPosition('cf', cf));
+    positionsArr[7] = (addPlayerToPosition('rf', rf));
+    positionsArr[8] = (addPlayerToPosition('lf', lf));
+    //console.log(positionsArr);
+
+    var positionMutable = positionsArr.slice();
+
+    var memo = [];
 
     function maxVorp(salaryCap, positions)
     {
-        //if (positions is empty)
-        //{
-        //    
-        //}
-        if (salary <= 0)
+        //console.log("****");
+        if (positions.length === 0)
         {
-            return 0;
+            return [];
+        }
+
+        var maxVorpSoFar = 0;
+        var maxVorpTeam = [];
+        var ary = [];
+        var tempVorp = 0;
+        var playerPerPosition = positions[0];
+
+        if (playerPerPosition.length !== 0)
+        {
+            playerPerPosition.forEach(function(currentPlayer) {
+
+                if (salaryCap - currentPlayer.Salary >= 0)
+                {
+                    positionMutable = positions.slice(1);
+
+                    if ([currentPlayer.Position, currentPlayer.Salary] in memo)
+                    {
+                        ary = memo.concat(currentPlayer);
+
+                        ary.forEach(function(ele) {
+                            tempVorp += ele.Vorp;
+                        });
+
+                        if (tempVorp > maxVorpSoFar)
+                        {
+                            maxVorpSoFar = tempVorp;
+                            maxVorpTeam = ary;
+                        }
+                        tempVorp = 0;
+                    }
+                    else
+                    {
+                        ary = (maxVorp(salaryCap - currentPlayer.Salary, positionMutable)).concat(currentPlayer);
+                        
+                        ary.forEach(function(ele){
+                            tempVorp += ele.Vorp;
+                        });
+
+                        if (tempVorp > maxVorpSoFar)
+                        {
+                            maxVorpSoFar = tempVorp;
+                            maxVorpTeam = ary;
+                        }
+                        tempVorp = 0;
+                    }
+                }
+
+            });
         }
         else
-        {
-            for (var i = 0; i < positions[0].length-1; i++)
+        { 
+            positionMutable = positions.slice(1);
+            ary = maxVorp(salaryCap, positionMutable);
+            ary.forEach(function(ele){
+                tempVorp += ele.Vorp
+            });
+
+            if (tempVorp > maxVorpSoFar)
             {
-                if (positions )
+                maxVorpSoFar = tempVorp;
+                maxVorpTeam = ary;
             }
+            tempVorp = 0;
         }
+        return maxVorpTeam;
     }
 
+    var maximumVorp = maxVorp(2000000000, positionsArr);
 
+    var vorpTotal = 0;
+    var salaryTotal = 0;
+    maximumVorp.forEach(function(player){
+        vorpTotal += player.Vorp;
+        salaryTotal += player.Salary;
+    });
+    console.log("Max: ", maximumVorp);
 
-
-/*
-    var possibleTeams = {};
-
-    function createTeam(p, c, first, second, ss, third, cf, rf, lf, currentTeams)
-    {
-        var team = {p[p.length-1], c[c.length-1], first[first.length-1], second[second.length-1], ss[ss.length-1], third[third.length-1],
-         cf[cf.length-1], rf[rf.length-1], lf[lf.length-1]};
-        currentTeams.push(team);
-
-        if (p.length > 0)
-        {
-            p.pop();
-            createTeam(p, c, first, second, ss, third, cf, rf, lf, currentTeams);
-        }
-        if (c.length > 0)
-        {
-            c.pop();
-            createTeam(p, c, first, second, ss, third, cf, rf, lf, currentTeams);
-        }
-        if (first.length > 0)
-        {
-            first.pop();
-            createTeam(p, c, first, second, ss, third, cf, rf, lf, currentTeams);
-        }
-        if (second.length > 0)
-        {
-            second.pop();
-            createTeam(p, c, first, second, ss, third, cf, rf, lf, currentTeams);
-        }
-        if (ss.length > 0)
-        {
-            ss.pop();
-            createTeam(p, c, first, second, ss, third, cf, rf, lf, currentTeams);
-        }
-        if (third.length > 0)
-        {
-            third.pop();
-            createTeam(p, c, first, second, ss, third, cf, rf, lf, currentTeams);
-        }
-        if (cf.length > 0)
-        {
-            cf.pop();
-            createTeam(p, c, first, second, ss, third, cf, rf, lf, currentTeams);
-        }
-        if (rf.length > 0)
-        {
-            rf.pop();
-            createTeam(p, c, first, second, ss, third, cf, rf, lf, currentTeams);
-        }
-        if (lf.length > 0)
-        {
-            lf.pop();
-            createTeam(p, c, first, second, ss, third, cf, rf, lf, currentTeams);
-        }
-        if (p.lenghth === 0 && c.length === 0 && first.length === 0 && 2b.length === 0 && ss.length === 0 && third.length === 0
-         && cf.length === 0 && rf.length === 0 && lf.length === 0)
-        {
-            return team;
-        }
-    }
-*/
+    document.getElementById("results").value += maximumVorp + '\n' + vorpTotal + '\n' + salaryTotal;
 
 
 });
-
