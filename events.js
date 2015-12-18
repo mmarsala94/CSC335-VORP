@@ -94,13 +94,13 @@ computeButton.addEventListener("click", function() {
 
     p[p.length] = addPlayer('no player','p', 0, 0);
     c[c.length] = addPlayer('no player','c', 0, 0);
-    first[first.length] = addPlayer('undefined', '1b', 0, 0);
-    second[second.length] = addPlayer('undefined', '2b', 0, 0);
-    third[third.length] = addPlayer('undefined', '3b', 0, 0);
-    ss[ss.length] = addPlayer('undefined', 'ss', 0, 0);
-    lf[lf.length] = addPlayer('undefined', 'lf', 0, 0);
-    cf[cf.length] = addPlayer('undefined', 'cf', 0, 0);
-    rf[rf.length] = addPlayer('undefined', 'rf', 0, 0);
+    first[first.length] = addPlayer('no player', '1b', 0, 0);
+    second[second.length] = addPlayer('no player', '2b', 0, 0);
+    third[third.length] = addPlayer('no player', '3b', 0, 0);
+    ss[ss.length] = addPlayer('no player', 'ss', 0, 0);
+    lf[lf.length] = addPlayer('no player', 'lf', 0, 0);
+    cf[cf.length] = addPlayer('no player', 'cf', 0, 0);
+    rf[rf.length] = addPlayer('no player', 'rf', 0, 0);
 
     var positionsArr = [];
 
@@ -127,7 +127,6 @@ computeButton.addEventListener("click", function() {
 
     function maxVorp(salaryCap, positions)
     {
-        
 
         if (positions.length === 0)
         {
@@ -139,20 +138,20 @@ computeButton.addEventListener("click", function() {
         var ary = [];
         var tempVorp = 0;
 
-        var playerPerPosition = positions[0];
-
-
+        key = generateKey(positions.length, salaryCap);
             if (key in memo)
             {
-                console.log("in memo");
+                //console.log("in memo");
                 return memo[key];
             }
+
+                var playerPerPosition = positions[0];
 
                 playerPerPosition.forEach(function(currentPlayer,ii) {
 
                     if (salaryCap - currentPlayer.Salary >= 0 && currentPlayer.Vorp >= 0)
                     {
-                        console.log('got here');
+                        //console.log('Not in memo');
                         positionMutable = positions.slice(1);
 
                         ary = (maxVorp(salaryCap - currentPlayer.Salary, positionMutable)).concat(currentPlayer);
@@ -174,18 +173,19 @@ computeButton.addEventListener("click", function() {
                     return (memo[key] = maxVorpTeam); 
               
     }
-
+    var salaryCap = 2000000;
     //var maximumVorp = maxVorp(10000000000, positionsArr);
-    var maximumVorp = maxVorp(2000000, positionsArr);
+    var maximumVorp = maxVorp(salaryCap, positionsArr);
     var vorpTotal = 0;
     var salaryTotal = 0;
     maximumVorp.forEach(function(player){
+        document.getElementById("results").value += player.Name + ' ' + player.Position + ' ' + player.Vorp + ' ' + player.Salary + '\n';
         vorpTotal += player.Vorp;
         salaryTotal += player.Salary;
     });
     console.log("Max: ", maximumVorp);
 
-    document.getElementById("results").value += maximumVorp + '\n' + vorpTotal + '\n' + salaryTotal;
+    document.getElementById("results").value += '\n' + 'Vorp Total = ' + vorpTotal + '\n' + 'Salary Cap = ' + salaryCap + '\n' + 'Salary spent = ' + salaryTotal;
 
 
 });
