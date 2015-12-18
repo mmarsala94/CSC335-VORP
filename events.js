@@ -141,21 +141,18 @@ computeButton.addEventListener("click", function() {
 
         var playerPerPosition = positions[0];
 
-        if (playerPerPosition.length !== 0)
-        {
+
             if (key in memo)
             {
                 console.log("in memo");
                 return memo[key];
             }
-            else
-            {
+
                 playerPerPosition.forEach(function(currentPlayer,ii) {
 
                     if (salaryCap - currentPlayer.Salary >= 0 && currentPlayer.Vorp >= 0)
                     {
-                        key = generateKey(currentPlayer.Position, currentPlayer.Salary);
-
+                        console.log('got here');
                         positionMutable = positions.slice(1);
 
                         ary = (maxVorp(salaryCap - currentPlayer.Salary, positionMutable)).concat(currentPlayer);
@@ -171,31 +168,15 @@ computeButton.addEventListener("click", function() {
                         }
                         tempVorp = 0;                
                     }
-                   
+  
                 });
-            return (memo[key] = maxVorpTeam);   
-            }   
-        }
-        else
-        { 
-            positionMutable = positions.slice(1);
-            ary = maxVorp(salaryCap, positionMutable);
-            ary.forEach(function(ele){
-                tempVorp += ele.Vorp
-            });
-
-            if (tempVorp > maxVorpSoFar)
-            {
-                maxVorpSoFar = tempVorp;
-                maxVorpTeam = ary;
-            }
-            tempVorp = 0;
-        }
-        return maxVorpTeam;
+                    key = generateKey(positions.length, salaryCap);
+                    return (memo[key] = maxVorpTeam); 
+              
     }
 
-    var maximumVorp = maxVorp(10000000000, positionsArr);
-
+    //var maximumVorp = maxVorp(10000000000, positionsArr);
+    var maximumVorp = maxVorp(2000000, positionsArr);
     var vorpTotal = 0;
     var salaryTotal = 0;
     maximumVorp.forEach(function(player){
