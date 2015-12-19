@@ -54,8 +54,8 @@ computeButton.addEventListener("click", function() {
         playerList[i].Vorp = Number(playerList[i].Vorp);
         playerList[i].Salary = Number((playerList[i].Salary).slice(1).replace(/,/g, ''));
     }
-
     // function to add players to position.
+    
     function addPlayerToPosition(pos,list)
     {
         var counter = 0;
@@ -69,38 +69,28 @@ computeButton.addEventListener("click", function() {
             }
         }
         return arry;
-    }
-
-    var p = [];
-    var c = [];
-    var first = [];
-    var second = [];
-    var ss = [];
-    var third = [];
-    var cf = [];
-    var rf = [];
-    var lf = [];
-
-    // separate position arrays.
-    p = addPlayerToPosition('p', playerList);
-    c = addPlayerToPosition('c', playerList);
-    first = addPlayerToPosition('1b', playerList);
-    second = addPlayerToPosition('2b', playerList);
-    ss = addPlayerToPosition('ss', playerList);
-    third = addPlayerToPosition('3b', playerList);
-    cf = addPlayerToPosition('cf', playerList);
-    rf = addPlayerToPosition('rf', playerList);
-    lf = addPlayerToPosition('lf', playerList);
-
-    p[p.length] = addPlayer('no player','p', 0, 0);
-    c[c.length] = addPlayer('no player','c', 0, 0);
-    first[first.length] = addPlayer('no player', '1b', 0, 0);
-    second[second.length] = addPlayer('no player', '2b', 0, 0);
-    third[third.length] = addPlayer('no player', '3b', 0, 0);
-    ss[ss.length] = addPlayer('no player', 'ss', 0, 0);
-    lf[lf.length] = addPlayer('no player', 'lf', 0, 0);
-    cf[cf.length] = addPlayer('no player', 'cf', 0, 0);
-    rf[rf.length] = addPlayer('no player', 'rf', 0, 0);
+    }//function to create an array of players for a given position
+    
+    var p = addPlayerToPosition('p', playerList);
+    var c = addPlayerToPosition('c', playerList);
+    var first = addPlayerToPosition('1b', playerList);
+    var second = addPlayerToPosition('2b', playerList);
+    var ss = addPlayerToPosition('ss', playerList);
+    var third = addPlayerToPosition('3b', playerList);
+    var cf = addPlayerToPosition('cf', playerList);
+    var rf = addPlayerToPosition('rf', playerList);
+    var lf = addPlayerToPosition('lf', playerList);
+    // creates separate position arrays.
+    
+    p[p.length] = addPlayer('undefined','p', 0, 0);
+    c[c.length] = addPlayer('undefined','c', 0, 0);
+    first[first.length] = addPlayer('undefined', '1b', 0, 0);
+    second[second.length] = addPlayer('undefined', '2b', 0, 0);
+    third[third.length] = addPlayer('undefined', '3b', 0, 0);
+    ss[ss.length] = addPlayer('undefined', 'ss', 0, 0);
+    lf[lf.length] = addPlayer('undefined', 'lf', 0, 0);
+    cf[cf.length] = addPlayer('undefined', 'cf', 0, 0);
+    rf[rf.length] = addPlayer('undefined', 'rf', 0, 0);
 
     var positionsArr = [];
 
@@ -113,7 +103,6 @@ computeButton.addEventListener("click", function() {
     positionsArr[6] = (addPlayerToPosition('cf', cf));
     positionsArr[7] = (addPlayerToPosition('rf', rf));
     positionsArr[8] = (addPlayerToPosition('lf', lf));
-    //console.log(positionsArr);
 
     var positionMutable = positionsArr.slice();
 
@@ -123,8 +112,10 @@ computeButton.addEventListener("click", function() {
     function generateKey(a,b)
     {
         return a.toString() + ',' + b.toString();
-    }
+    }//function to generate key to be used in memo 
 
+
+    var teamBudget = prompt("Enter a team budget","$-------")
     function maxVorp(salaryCap, positions)
     {
 
@@ -138,23 +129,23 @@ computeButton.addEventListener("click", function() {
         var ary = [];
         var tempVorp = 0;
 
-        key = generateKey(positions.length, salaryCap);
+            key = generateKey(positions.length, salaryCap); 
             if (key in memo)
             {
-                //console.log("in memo");
                 return memo[key];
             }
-
+            
                 var playerPerPosition = positions[0];
 
                 playerPerPosition.forEach(function(currentPlayer,ii) {
 
                     if (salaryCap - currentPlayer.Salary >= 0 && currentPlayer.Vorp >= 0)
                     {
-                        //console.log('Not in memo');
+                        //console.log('got here');
                         positionMutable = positions.slice(1);
 
                         ary = (maxVorp(salaryCap - currentPlayer.Salary, positionMutable)).concat(currentPlayer);
+                        
                         
                         ary.forEach(function(ele){
                             tempVorp += ele.Vorp;
@@ -165,27 +156,69 @@ computeButton.addEventListener("click", function() {
                             maxVorpSoFar = tempVorp;
                             maxVorpTeam = ary;
                         }
-                        tempVorp = 0;                
+
+                        tempVorp = 0;   
+
                     }
-  
+                       
                 });
-                    key = generateKey(positions.length, salaryCap);
-                    return (memo[key] = maxVorpTeam); 
-              
+
+                     key = generateKey(positions.length, salaryCap); 
+                     return (memo.key = maxVorpTeam);         
     }
-    var salaryCap = 2000000;
-    //var maximumVorp = maxVorp(10000000000, positionsArr);
-    var maximumVorp = maxVorp(salaryCap, positionsArr);
+
+    var maximumVorp = maxVorp(teamBudget, positionsArr);
     var vorpTotal = 0;
     var salaryTotal = 0;
+
     maximumVorp.forEach(function(player){
-        document.getElementById("results").value += player.Name + ' ' + player.Position + ' ' + player.Vorp + ' ' + player.Salary + '\n';
         vorpTotal += player.Vorp;
         salaryTotal += player.Salary;
     });
-    console.log("Max: ", maximumVorp);
+   
+    document.getElementById("results").value = "Team with overall highest Vorp within budget of $" + teamBudget + '\n' + '\n';
+    maximumVorp.forEach(function(player){ if (player.Name != "undefined")
+        switch (player.Position)
+        {
+            case "p":
+            document.getElementById("results").value += "Pitcher: " + '\n\t\t' + "Name: " + player.Name + '\n\t\t' + "Salary: " + player.Salary + '\n\t\t' + "Vorp: " + player.Vorp + '\n' ;
+            break;
 
-    document.getElementById("results").value += '\n' + 'Vorp Total = ' + vorpTotal + '\n' + 'Salary Cap = ' + salaryCap + '\n' + 'Salary spent = ' + salaryTotal;
+            case "c":
+            document.getElementById("results").value += "Catcher: " + '\n\t\t' + "Name: " + player.Name + '\n\t\t' + "Salary: " + player.Salary + '\n\t\t' + "Vorp: " + player.Vorp + '\n';
+            break;
 
+            case "1b":
+            document.getElementById("results").value += "1st Baseman: " + '\n\t\t' + "Name: " + player.Name + '\n\t\t' + "Salary: " + player.Salary + '\n\t\t' + "Vorp: " + player.Vorp + '\n';
+            break;
+
+            case "2b":
+            document.getElementById("results").value += "2nd Baseman: " + '\n\t\t' + "Name: " + player.Name + '\n\t\t' + "Salary: " + player.Salary + '\n\t\t' + "Vorp: " + player.Vorp + '\n';
+            break;
+
+            case "3b":
+            document.getElementById("results").value += "3rd Baseman: " + '\n\t\t' + "Name: " + player.Name + '\n\t\t' + "Salary: " + player.Salary + '\n\t\t' + "Vorp: " + player.Vorp + '\n';
+            break;
+
+            case "ss":
+            document.getElementById("results").value += "Shortstop: " + '\n\t\t' + "Name: " + player.Name + '\n\t\t' + "Salary: " + player.Salary + '\n\t\t' + "Vorp: " + player.Vorp + '\n';
+            break;
+
+            case "lf":
+            document.getElementById("results").value += "Left Fielder: " + '\n\t\t' + "Name: " + player.Name + '\n\t\t' + "Salary: " + player.Salary + '\n\t\t' + "Vorp: " + player.Vorp + '\n';
+            break;
+
+            case "rf":
+            document.getElementById("results").value += "Right Fielder " + '\n\t\t' + "Name: " + player.Name + '\n\t\t' + "Salary: " + player.Salary + '\n\t\t' + "Vorp: " + player.Vorp + '\n';
+            break;
+
+            case "cf":
+            document.getElementById("results").value += "Center Fielder: " + '\n\t\t' + "Name: " + player.Name + '\n\t\t' + "Salary: " + player.Salary + '\n\t\t' + "Vorp: " + player.Vorp + '\n';
+            break;'\n\t\t'
+
+            default : document.getElementById("results").value += "No Position";
+
+        }});
+    document.getElementById("results").value +=  '\n' + "Teams Total Salary: "  + salaryTotal + '\n' +"Teams Total Vorp:   " + vorpTotal;
 
 });
